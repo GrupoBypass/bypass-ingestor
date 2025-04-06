@@ -6,14 +6,15 @@ from datetime import datetime, timedelta
 from sensors.base_sensor import BaseSensor
 
 class SensorDPS(BaseSensor):
-    def __init__(self):
+    def __init__(self, qtdGerada):
         super().__init__("dps")
+        self.qtdGerada = qtdGerada
 
     def generate_data(self) -> pd.DataFrame:
         dados_simulados = []
         data_inicial = datetime.now() - timedelta(days=1)
 
-        for i in range(96):
+        for i in range(self.qtdGerada):
             intervalo = random.randint(10, 15)  # Intervalo de 10 a 15 minutos
             data_hora = data_inicial + timedelta(minutes=i * intervalo)
             
@@ -47,11 +48,8 @@ class SensorDPS(BaseSensor):
         today = datetime.today().strftime('%Y-%m-%d')
         output_dir = f"/data/{self.sensor_name}/{today}"
 
-        # Verificar se o diretório existe, senão criar
         os.makedirs(output_dir, exist_ok=True)
 
-        #TODO: deixar o nome do arquivo de acordo com a especificação
-        # o código por enquanto está escrevendo assim: 22-34-00-gps (HH-mm-ss)
         timestamp = datetime.now().strftime('%H-%M-%S')
         return os.path.join(output_dir, f"{timestamp}-{self.sensor_name}.csv")
 
