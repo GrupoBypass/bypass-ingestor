@@ -5,7 +5,7 @@ SENSOR_LIST = [
 ]
 
 #TODO: alterar para caminho base no lakehouse
-BASE_OUTPUT_DIR = os.getenv("BASE_OUTPUT_DIR", "/app/data/output")
+BASE_OUTPUT_DIR = os.getenv("BASE_OUTPUT_DIR", "/app/data/")
 
 # aqui podemos ir setando a quantidade de samples que queremos gerar para cada sensor
 DEFAULT_SAMPLE_SIZE = int(os.getenv("DEFAULT_SAMPLE_SIZE", "10"))

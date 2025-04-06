@@ -2,10 +2,11 @@ import os
 import random
 import pandas as pd
 
+import process.distance as dist
+
 from datetime import datetime
 
 from sensors.base_sensor import BaseSensor
-from process.distance import calculate_distance
 
 class SensorGPS(BaseSensor):
     def __init__(self):
@@ -19,7 +20,7 @@ class SensorGPS(BaseSensor):
 
         for _ in range(10):  # Gerar 10 pontos
             new_position = self._get_random_position()
-            distance = self.calculate_distance(last_position, new_position)
+            distance = dist.calculate_distance(last_position, new_position)
             positions.append(new_position)
             distances.append(distance)
             last_position = new_position
@@ -42,7 +43,7 @@ class SensorGPS(BaseSensor):
         os.makedirs(output_dir, exist_ok=True)
 
         #TODO: deixar o nome do arquivo de acordo com a especificação
-        # o código por enquanto está escrevendo assim: 22-34-00-gps (HH-mm-ss)
+        # o código por enquanto está escrevendo assim: 22-34-00-gps.csv (HH-mm-ss)
         timestamp = datetime.now().strftime('%H-%M-%S')
         return os.path.join(output_dir, f"{timestamp}-{self.sensor_name}.csv")
 

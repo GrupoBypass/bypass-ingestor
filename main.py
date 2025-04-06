@@ -1,11 +1,11 @@
 import logging
 
-from sensors.sensor_gps import SensorGPS
-from data_writer.csv_writer import CSVWriter
+from sensors.gps_sensor import SensorGPS
+from data_managers.csv_writer import CSVWriter
 from utils.file_manager import FileManager
 from config import settings
 
-def main():
+def main():   
     sensors = [SensorGPS()]  # adicionar os sensores aqui conforme for desenvolvendo
     writer = CSVWriter(settings.BASE_OUTPUT_DIR)
     FileManager.create_sensor_dirs(settings.BASE_OUTPUT_DIR, settings.SENSOR_LIST)
