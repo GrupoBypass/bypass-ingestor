@@ -8,6 +8,6 @@ class BaseSensor:
         """Método para gerar os dados específicos de cada sensor"""
         raise NotImplementedError
 
-    def get_output_path(self) -> str:
+    # def get_output_path(self) -> str:
         """Caminho da pasta referência de cada sensor que vamos salvar no lakehouse"""
-        raise NotImplementedError
+        # raise NotImplementedError
