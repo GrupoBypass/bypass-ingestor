@@ -32,9 +32,3 @@ class DPSProcessor:
         path = self.get_output_path()
         df.to_csv(path, index=False)
         print(f"Arquivo salvo em: {path}")
-
-# Exemplo de uso:
-if __name__ == "__main__":
-    processor = DPSProcessor(qtdGerada=100)
-    df = processor.generate_dataframe()
-    processor.save_data(df)
