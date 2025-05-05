@@ -4,12 +4,12 @@ import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from sensors.omron_sensor import SensorOmron
+from process.omron_processor import OmronProcessor
 
 if __name__ == "__main__":
-    sensor = SensorOmron()
-    df = sensor.generate_data()
-
+    processor = OmronProcessor(x=20, y=20)  # Exemplo menor para visualização
+    df = processor.generate_dataframe()
+    
     output_dir = os.path.join(os.path.dirname(__file__), "output")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -18,3 +18,5 @@ if __name__ == "__main__":
 
     print(f"Arquivo gerado com sucesso: {output_path}")
     print(df.head())
+
+    processor.plot_heatmap(df)

@@ -1,17 +1,14 @@
-import os
 import random
-import pandas as pd
-
-from datetime import datetime, timedelta
+from datetime import datetime
 from sensors.base_sensor import BaseSensor
 
 
 class SensorDPS(BaseSensor):
-    def __init__(self, qtdGerada):
+    def __init__(self):
         super().__init__("dps")
-        self.qtdGerada = qtdGerada
 
-    def generate_data(self) -> pd.DataFrame:
+    def generate_raw_data(self, data_hora_base: datetime) -> dict:
+
         dados_simulados = []
         data_inicial = datetime.now() - timedelta(days=1)
 
@@ -32,7 +29,6 @@ class SensorDPS(BaseSensor):
             pico_tensao_kv = 0.0
             corrente_surto_ka = 0.0
         else:
-            # 1.0 kV a 12.0 kV
             pico_tensao_kv = round(random.uniform(1.0, 12.0), 2)
 
             # 5.0 kA a 50.0 kA

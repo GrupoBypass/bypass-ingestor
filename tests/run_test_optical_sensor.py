@@ -4,11 +4,11 @@ import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from sensors.optical_sensor import SensorOptical
+from process.optical_processor import OpticalProcessor
 
 if __name__ == "__main__":
-    sensor = SensorOptical(qtdGerada=10)
-    df = sensor.generate_data()
+    processor = OpticalProcessor(qtdGerada=10)
+    df = processor.generate_dataframe()
 
     output_dir = os.path.join(os.path.dirname(__file__), "output")
     os.makedirs(output_dir, exist_ok=True)
