@@ -1,13 +1,16 @@
 import os
 import pandas as pd
-import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 from datetime import datetime
+from scipy.ndimage import gaussian_filter
 from sensors.omron_sensor import SensorOmron
+from matplotlib.colors import LinearSegmentedColormap
+
 
 class OmronProcessor:
-    def __init__(self, x=50, y=50):
-        self.sensor = SensorOmron(x, y)
+    def __init__(self, hotspots, percent, noise, radius_min, radius_max, lines, columns):
+        self.sensor = SensorOmron(hotspots, percent, noise, radius_min, radius_max, lines, columns)
 
     def generate_dataframe(self) -> pd.DataFrame:
         matriz = self.sensor.generate_matrix()
@@ -25,10 +28,21 @@ class OmronProcessor:
         df.to_csv(output_path, index=False)
 
     def plot_heatmap(self, df: pd.DataFrame):
-        plt.imshow(df.values, cmap="Greys", interpolation="nearest")
-        plt.title("Matriz Sensor Omron")
-        plt.colorbar(label="Valor")
-        plt.xlabel("Coluna")
-        plt.ylabel("Linha")
-        plt.tight_layout()
-        # plt.show()
+        matriz = gaussian_filter(df, sigma=1)
+        colors = ["white", "orange", "red", "darkred"]
+        cmap = LinearSegmentedColormap.from_list("custom_heat", colors)
+
+
+        plt.figure(figsize=(10, 6))
+        sns.heatmap(
+            matriz,
+            cmap=cmap,
+            cbar=True,
+            linewidths=0.2,
+            linecolor='gray',
+            square=True
+        )
+        plt.title("Gráfico do metro", fontsize=14)
+        plt.xlabel("Corredor / Seção Horizontal")
+        plt.ylabel("Corredor / Seção Vertical")
+        plt.show()
