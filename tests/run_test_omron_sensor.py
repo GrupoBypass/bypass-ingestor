@@ -7,7 +7,15 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from process.omron_processor import OmronProcessor
 
 if __name__ == "__main__":
-    processor = OmronProcessor(x=20, y=20)  # Exemplo menor para visualização
+    # Cenário BOM
+    # processor = OmronProcessor(hotspots=2, percent=0.6, noise=0.005, radius_min=1, radius_max=2, lines=20, columns=30)
+
+    # Cenário MEDIO
+    processor = OmronProcessor(hotspots=5, percent=0.7, noise=0.02, radius_min=1, radius_max=3, lines=20, columns=30)
+
+    # Cenário RUIM
+    # processor = OmronProcessor(hotspots=8, percent=0.9, noise=0.08, radius_min=2, radius_max=4, lines=20, columns=30)
+
     df = processor.generate_dataframe()
     
     output_dir = os.path.join(os.path.dirname(__file__), "output")
@@ -19,4 +27,4 @@ if __name__ == "__main__":
     print(f"Arquivo gerado com sucesso: {output_path}")
     print(df.head())
 
-    processor.plot_heatmap(df)
+    # processor.plot_heatmap(df)
