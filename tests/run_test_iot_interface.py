@@ -17,7 +17,8 @@ def generate_data():
 
 
 if __name__ == "__main__":
-    connection_string = os.getenv("AZURE_IOT_CONNECTION_STRING")
+    connection_string = "HostName=barbara02231047.azure-devices.net;DeviceId=gabriel-device;SharedAccessKey=dmavQPyvC1JQmqhRcWjbB/ZhiCeBFbWCW0l2HNRTEBU="
+
 
     iot_interface = AzureIoTInterface(connection_string=connection_string)
 

@@ -1,6 +1,7 @@
 import random
 from datetime import datetime
 from sensors.base_sensor import BaseSensor
+import pandas as pd
 
 
 class SensorDPS(BaseSensor):
