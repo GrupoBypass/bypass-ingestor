@@ -5,6 +5,7 @@ import pandas as pd
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from process.omron_processor import OmronProcessor
+from process.iot_processor import IOTProcessor
 
 if __name__ == "__main__":
     # Cenário BOM
@@ -18,6 +19,9 @@ if __name__ == "__main__":
 
     df = processor.generate_dataframe()
     
+    save = IOTProcessor(df)
+    save.insert_azure()
+
     output_dir = os.path.join(os.path.dirname(__file__), "output")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -26,5 +30,3 @@ if __name__ == "__main__":
 
     print(f"Arquivo gerado com sucesso: {output_path}")
     print(df.head())
-
-    # processor.plot_heatmap(df)

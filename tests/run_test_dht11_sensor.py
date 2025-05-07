@@ -5,10 +5,14 @@ import pandas as pd
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from process.dht11_processor import DHT11Processor
+from process.iot_processor import IOTProcessor
 
 if __name__ == "__main__":
     processor = DHT11Processor()
     df = processor.generate_dataframe()
+
+    save = IOTProcessor(df)
+    save.insert_azure()
 
     output_dir = os.path.join(os.path.dirname(__file__), "output")
     os.makedirs(output_dir, exist_ok=True)
