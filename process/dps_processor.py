@@ -18,12 +18,7 @@ class DPSProcessor:
             dado = self.sensor.generate_raw_data(data_hora)
             dados_simulados.append(dado)
 
-        df = pd.DataFrame(dados_simulados)
-
-        # Converte o DataFrame para um JSON string
-        json_str = df.to_json(orient='records', date_format='iso')
-
-        return json_str
+        return pd.DataFrame(dados_simulados)
 
 
     def get_output_path(self):
