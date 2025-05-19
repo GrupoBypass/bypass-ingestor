@@ -4,7 +4,7 @@ from datetime import datetime
 from sensors.optical_sensor import SensorOptical
 
 class OpticalProcessor:
-    def __init__(self, qtdGerada=10):
+    def __init__(self, qtdGerada=1):
         self.sensor = SensorOptical(qtdGerada)
 
     def generate_dataframe(self) -> pd.DataFrame:

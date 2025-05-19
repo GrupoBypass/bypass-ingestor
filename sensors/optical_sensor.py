@@ -3,7 +3,7 @@ from datetime import datetime
 from sensors.base_sensor import BaseSensor
 
 class SensorOptical(BaseSensor):
-    def __init__(self, qtdGerada=10):
+    def __init__(self, qtdGerada=1):
         super().__init__("optical")
         self.distancia = 40.0       # mm inicial
         self.limite_troca = 9.5     # mm limite

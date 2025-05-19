@@ -14,7 +14,7 @@ class OmronProcessor:
 
     def generate_dataframe(self) -> pd.DataFrame:
         matriz = self.sensor.generate_matrix()
-        return pd.DataFrame(matriz)
+        return matriz
 
     def get_output_path(self):
         today = datetime.today().strftime('%Y-%m-%d')

@@ -11,8 +11,10 @@ class SensorPiezo(BaseSensor):
     def generate_raw_data(self):
         dados_simulados = []
         now = datetime.now()
-        start_time = now.replace(hour=4, minute=30, second=0)
+        start_time = now.replace(hour=0, minute=10, second=0)
         end_time = now.replace(hour=0, minute=0, second=0) + timedelta(days=1)
+        # end_time = now.replace(hour=1, minute=0, second=0)
+
         current_time = start_time
 
         while current_time < end_time:

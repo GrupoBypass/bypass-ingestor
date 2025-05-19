@@ -8,17 +8,18 @@ class DPSProcessor:
         self.sensor = SensorDPS()
         self.qtdGerada = qtdGerada
 
-    def generate_dataframe(self) -> pd.DataFrame:
+    def generate_dataframe(self) -> str:
         data_inicial = datetime.now() - timedelta(days=1)
         dados_simulados = []
 
         for i in range(self.qtdGerada):
-            intervalo = 10 + i % 6  # 10 a 15 min (apenas para variar)
+            intervalo = 10 + i % 6  # 10 a 15 min
             data_hora = data_inicial + timedelta(minutes=i * intervalo)
             dado = self.sensor.generate_raw_data(data_hora)
             dados_simulados.append(dado)
 
         return pd.DataFrame(dados_simulados)
+
 
     def get_output_path(self):
         today = datetime.today().strftime('%Y-%m-%d')

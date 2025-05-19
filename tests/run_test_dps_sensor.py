@@ -6,9 +6,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from process.dps_processor import DPSProcessor
 from process.iot_processor import IOTProcessor
+import json
 
 if __name__ == "__main__":
-    qtd_dados = 96
+    qtd_dados = 2
     processor = DPSProcessor(qtdGerada=qtd_dados)
 
     df = processor.generate_dataframe()
