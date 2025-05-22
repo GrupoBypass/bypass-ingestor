@@ -9,8 +9,8 @@ from process.iot_processor import IOTProcessor
 
 if __name__ == "__main__":
     processor = ToFProcessor()
-    df = processor.generate_dataframe()
-
+    df = processor.aggregate_data(processor.generate_data(carros=6, single_capture=True))
+    
     save = IOTProcessor(df)
     save.insert_azure()
 
