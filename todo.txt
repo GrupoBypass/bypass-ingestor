@@ -1,7 +1,7 @@
 Sensores a alterar:
   - dht11           -- feito
   - gps (apagar)    -- feito
-  - optico
+  - optico          -- feito
   - piezo
 
 Wrappers para alterar:

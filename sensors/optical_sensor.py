@@ -1,30 +1,34 @@
-import random
+import numpy as np
 from datetime import datetime
 from sensors.base_sensor import BaseSensor
 
 class SensorOptical(BaseSensor):
-    def __init__(self, qtdGerada=10):
+    def __init__(self, seed, falha_probabilidade: float):
         super().__init__("optical")
-        self.distancia = 40.0       # mm inicial
-        self.limite_troca = 9.5     # mm limite
-        self.qtdGerada = qtdGerada
+        self.falha_probabilidade = falha_probabilidade
+        self.seed = seed
 
-    def generate_raw_data(self):
-        dados_simulados = []
-        distancia_atual = self.distancia
+    def generate_data(self, distancia_atual, data_hora: datetime):
+        np.random.seed(self.seed)
 
-        for _ in range(self.qtdGerada):
-            desgaste = random.uniform(0.1, 0.5)
-            distancia_atual = max(0.0, distancia_atual - desgaste)
+        limite_troca = 9.5
 
-            dados_simulados.append(self._get_random_data(distancia_atual))
+        status = np.random.choice(["OK", "ERR"],
+                                  p=[1 - self.falha_probabilidade,
+                                      self.falha_probabilidade]
+                                  )
+        
+        if status == "OK":
+            desgaste = np.random.uniform(0.5, 1.0)
+        else:
+            desgaste = np.random.uniform(1.5, 2.5)
+        
+        distancia_atual = max(0.0, distancia_atual - desgaste)
 
-        return dados_simulados
-
-    def _get_random_data(self, distancia_atual):
-        status = "OK" if distancia_atual > self.limite_troca else "TROCAR"
+        status = "OK" if distancia_atual > limite_troca else "TROCAR"
+        
         return {
-            "timestamp": datetime.now().isoformat(),
+            "dataHora": data_hora.strftime("%Y-%m-%d %H:%M:%S"),
             "distancia_pastilha_mm": round(distancia_atual, 2),
             "status_pastilha": status
-        }
+        }, distancia_atual

@@ -3,10 +3,10 @@ from datetime import datetime, timedelta
 from sensors.dps_sensor import SensorDPS
 
 class DPSProcessor:
-    def __init__(self, qtdGerada: int):
+    def __init__(self, qtdGerada: int, falha_probabilidade: float):
         self.data_inicial = datetime.now() - timedelta(days=1)
         self.qtdGerada = qtdGerada
-        self.sensor = SensorDPS(falha_probabilidade=0.10, seed=42)
+        self.sensor = SensorDPS(falha_probabilidade=falha_probabilidade, seed=42)
 
     def generate_data_list(self) -> list:
         dados_simulados = []

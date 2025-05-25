@@ -9,7 +9,17 @@ from process.iot_processor import IOTProcessor
 
 if __name__ == "__main__":
     qtd_dados = 96
-    processor = DPSProcessor(qtdGerada=qtd_dados)
+
+    # Cenário Bom
+    falha_probabilidade = 0.10
+
+    # Cenário Médio
+    # falha_probabilidade = 0.40
+
+    # Cenário Ruim
+    # falha_probabilidade = 0.60
+    
+    processor = DPSProcessor(qtdGerada=qtd_dados, falha_probabilidade=falha_probabilidade)
 
     df = processor.generate_data_list()
     print(df)
