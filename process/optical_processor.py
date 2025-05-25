@@ -3,14 +3,15 @@ from datetime import datetime, timedelta
 from sensors.optical_sensor import SensorOptical
 
 class OpticalProcessor:
-    def __init__(self, qtdGerada, falha_probabilidade):
+    def __init__(self, qtdGerada, falha_probabilidade, distancia_inicial, distancia_final):
+        self.sensor = SensorOptical(falha_probabilidade=falha_probabilidade, seed=44, limite_troca= distancia_final)
         self.data_inicial = datetime.now() - timedelta(days=1)
         self.qtdGerada = qtdGerada
-        self.sensor = SensorOptical(falha_probabilidade=falha_probabilidade, seed=44)
+        self.distancia_inicial = distancia_inicial
 
     def generate_data_list(self) -> list:
         dados_simulados = []
-        distancia_inicial = 40.0
+        distancia_inicial = self.distancia_inicial
         
         for i in range(self.qtdGerada):
             data_hora = self.data_inicial + timedelta(days=i)

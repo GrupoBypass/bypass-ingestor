@@ -10,16 +10,22 @@ from process.iot_processor import IOTProcessor
 if __name__ == "__main__":
     qtd_dados = 30 # Um mês
 
-    # Cenário Bom
+    # Cenário BOM
     falha_probabilidade = 0.10
 
-    # Cenário Médio
+    # Cenário ALERTA
     # falha_probabilidade = 0.40
 
-    # Cenário Ruim
+    # Cenário CRITICO
     # falha_probabilidade = 0.60
 
-    processor = OpticalProcessor(qtdGerada=qtd_dados, falha_probabilidade=falha_probabilidade)
+    processor = OpticalProcessor(
+        qtdGerada= qtd_dados, 
+        falha_probabilidade= falha_probabilidade,
+        distancia_inicial= 45.0,
+        distancia_final= 9.5,
+        )
+    
     df = processor.generate_data_list()
 
     print(df)

@@ -7,10 +7,10 @@ import random
 from sensors.dht11_sensor import SensorDHT11
 
 class DHT11Processor:
-    def __init__(self, qtdGerada: int):
-        self.data_inicial = datetime.now() - timedelta(days=1)
+    def __init__(self, qtdGerada: int, falha_probabilidade: float, data_inicial: datetime):
+        self.data_inicial = data_inicial
         self.qtdGerada = qtdGerada
-        self.sensor = SensorDHT11(seed=43)
+        self.sensor = SensorDHT11(seed=43, falha_probabilidade=falha_probabilidade)
 
     def generate_data_list(self) -> list:
         dados_simulados = []

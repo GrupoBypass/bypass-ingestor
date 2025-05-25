@@ -11,10 +11,10 @@ if __name__ == "__main__":
     # Cenário BOM
     # processor = OmronProcessor(hotspots=2, percent=0.6, noise=0.005, radius_min=1, radius_max=2, lines=20, columns=30)
 
-    # Cenário MEDIO
+    # Cenário ALERTA
     processor = OmronProcessor(hotspots=5, percent=0.7, noise=0.02, radius_min=1, radius_max=3, lines=20, columns=30)
 
-    # Cenário RUIM
+    # Cenário CRITICO
     # processor = OmronProcessor(hotspots=8, percent=0.9, noise=0.08, radius_min=2, radius_max=4, lines=20, columns=30)
 
     df = processor.generate_dataframe()
