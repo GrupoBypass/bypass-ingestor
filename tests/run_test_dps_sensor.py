@@ -6,6 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from process.dps_processor import DPSProcessor
 from process.iot_processor import IOTProcessor
+import json
 
 if __name__ == "__main__":
     qtd_dados = 96

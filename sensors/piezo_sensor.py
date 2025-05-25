@@ -9,6 +9,7 @@ class SensorPiezo(BaseSensor):
     def generate_data(self, data_hora, base_pressure1, base_pressure2, indice) -> dict:
         np.random.seed(self.seed)
 
+
         if(base_pressure1 == None):
             pressure = np.random.uniform(0, 50)
         

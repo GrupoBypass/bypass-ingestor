@@ -4,6 +4,7 @@ from sensors.base_sensor import BaseSensor
 
 class SensorOptical(BaseSensor):
     def __init__(self, seed, falha_probabilidade: float, limite_troca: float):
+
         super().__init__("optical")
         self.falha_probabilidade = falha_probabilidade
         self.seed = seed

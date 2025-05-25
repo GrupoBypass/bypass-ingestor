@@ -25,19 +25,16 @@ class SensorOmron(BaseSensor):
             centro_y = random.randint(3, self.columns - 4)
             raio = random.randint(self.radius_min, self.radius_max)
 
-
             for i in range(centro_x - raio, centro_x + raio + 1):
                 for j in range(centro_y - raio, centro_y + raio + 1):
                     if 0 <= i < self.lines and 0 <= j < self.columns:
                         if random.random() < self.percent:
                             matriz[i][j] = 1
 
-
         for i in range(self.lines):
             for j in range(self.columns):
                 if matriz[i][j] == 0 and random.random() < self.noise:
                     matriz[i][j] = 1
-
 
         porcentagem_ativos = np.sum(matriz) / matriz.size
         # print(f"Porcentagem de áreas ativas: {porcentagem_ativos:.2%}")
@@ -47,5 +44,5 @@ class SensorOmron(BaseSensor):
             columns=[f"x{i+1}" for i in range(self.columns)],
             index=[f"y{j+1}" for j in range(self.lines)]
         )
-        
         return df
+

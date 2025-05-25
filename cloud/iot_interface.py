@@ -11,7 +11,8 @@ class AzureIoTInterface:
 
     def send_message(self, message: dict):
         try:
-            message_json = json.dumps(message)
+            message_json = json.dumps(message, ensure_ascii=False)
+
 
             self.device_client.send_message(message=message_json)
 
