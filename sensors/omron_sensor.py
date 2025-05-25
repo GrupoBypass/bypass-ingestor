@@ -1,9 +1,10 @@
 import random
 import numpy as np
+import pandas as pd
 from sensors.base_sensor import BaseSensor
 
 class SensorOmron(BaseSensor):
-    def __init__(self, hotspots, percent, noise, radius_min, radius_max, lines, columns):
+    def __init__(self, hotspots, percent, noise, radius_min, radius_max, lines, columns, seed):
         super().__init__("omron")
         self.lines = lines
         self.columns = columns
@@ -12,8 +13,11 @@ class SensorOmron(BaseSensor):
         self.noise = noise
         self.radius_min = radius_min 
         self.radius_max = radius_max 
+        self.seed = seed
 
     def generate_matrix(self):
+        np.random.seed(self.seed)
+
         matriz = np.zeros((self.lines, self.columns))
 
         for _ in range(self.hotspots):
@@ -38,4 +42,10 @@ class SensorOmron(BaseSensor):
         porcentagem_ativos = np.sum(matriz) / matriz.size
         # print(f"Porcentagem de áreas ativas: {porcentagem_ativos:.2%}")
 
-        return matriz
+        df = pd.DataFrame(
+            matriz,
+            columns=[f"x{i+1}" for i in range(self.columns)],
+            index=[f"y{j+1}" for j in range(self.lines)]
+        )
+        
+        return df

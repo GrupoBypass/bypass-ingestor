@@ -1,17 +1,15 @@
-import os
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from datetime import datetime
-from scipy.ndimage import gaussian_filter
 from sensors.omron_sensor import SensorOmron
-from matplotlib.colors import LinearSegmentedColormap
-
+import json
 
 class OmronProcessor:
     def __init__(self, hotspots, percent, noise, radius_min, radius_max, lines, columns):
-        self.sensor = SensorOmron(hotspots, percent, noise, radius_min, radius_max, lines, columns)
+        self.sensor = SensorOmron(hotspots, percent, noise, radius_min, radius_max, lines, columns, seed=46)
 
-    def generate_dataframe(self) -> pd.DataFrame:
+    def generate_data_list(self) -> list:
         matriz = self.sensor.generate_matrix()
-        return pd.DataFrame(matriz)
+        
+        json_str = matriz.to_json(orient='records', date_format='iso')
+        json_obj = json.loads(json_str)
+        
+        return json_obj
