@@ -20,6 +20,7 @@ if __name__ == "__main__":
     # CENÁRIO CRITICO
     # falha_probabilidade = 0.70
 
+    # Estou definindo a data aqui pois, posso querer simular os dados em horário de pico, ai já passo a dt e hr como 12h00
     processor = DHT11Processor(
         qtdGerada=qtd_dados,
         falha_probabilidade= falha_probabilidade,
