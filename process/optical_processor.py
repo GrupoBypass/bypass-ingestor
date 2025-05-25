@@ -1,24 +1,24 @@
-import os
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from sensors.optical_sensor import SensorOptical
 
 class OpticalProcessor:
-    def __init__(self, qtdGerada=1):
-        self.sensor = SensorOptical(qtdGerada)
+    def __init__(self, qtdGerada, falha_probabilidade, distancia_inicial, distancia_final):
+        self.sensor = SensorOptical(falha_probabilidade=falha_probabilidade, seed=44, limite_troca= distancia_final)
+        self.data_inicial = datetime.now() - timedelta(days=1)
+        self.qtdGerada = qtdGerada
+        self.distancia_inicial = distancia_inicial
 
-    def generate_dataframe(self) -> pd.DataFrame:
-        dados = self.sensor.generate_raw_data()
-        return pd.DataFrame(dados)
+    def generate_data_list(self) -> list:
+        dados_simulados = []
+        distancia_inicial = self.distancia_inicial
+        
+        for i in range(self.qtdGerada):
+            data_hora = self.data_inicial + timedelta(days=i)
 
-    def get_output_path(self):
-        today = datetime.today().strftime('%Y-%m-%d')
-        output_dir = f"data/{self.sensor.sensor_name}/{today}"
-        os.makedirs(output_dir, exist_ok=True)
+            dado = self.sensor.generate_data(distancia_inicial, data_hora)
+            distancia_inicial = dado[1]
+            
+            dados_simulados.append(dado[0])
 
-        timestamp = datetime.now().strftime('%H-%M-%S')
-        return os.path.join(output_dir, f"{timestamp}-{self.sensor.sensor_name}.csv")
-
-    def save_data(self, df: pd.DataFrame):
-        output_path = self.get_output_path()
-        df.to_csv(output_path, index=False)
+        return dados_simulados

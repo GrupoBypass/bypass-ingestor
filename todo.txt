@@ -1,0 +1,8 @@
+Sensores a alterar:
+  - dht11           -- feito
+  - gps (apagar)    -- feito
+  - optico          -- feito
+  - piezo           -- feito
+
+Wrappers para alterar:
+  - todos pensando na regra de negocio, utilizar seeds e ponderacoes(probabilidades)

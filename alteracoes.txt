@@ -1,0 +1,62 @@
+Sensor:
+
+- construtor:
+  - recebe o range/probabilidade necessaria pra cada dado
+    ex (lembrar sempre que sao parametros e nao valores fixos):
+
+      def __init__(self, falha_probabilidade: float, temperatura_range: list):
+        self.falha_probabilidade = 0.10 # probabilidade sempre em decimal
+        self.temperatura_range = [15.0, 30.0] # range sempre array
+
+  - recebe o numero da seed
+    ex:
+      
+      def __init__(self, seed: int):
+        self.seed = seed
+
+- generate_data:
+  - nao recebe nenhum parametro
+  - define a seed
+    ex:
+      np.random.seed(self.seed)
+
+  - gera um registro
+  - retorna como json/dict
+
+(Pode usar o sensor dps de exemplo, ele foi refatorado ja)
+
+
+Processor:
+
+- construtor
+  - recebe quantidadeGerada
+    ex:
+      def __init__(self, qtdGerada: int):
+        self.qtdGerada = qtdGerada
+
+  - define o sensor
+    ex:
+      def __init__(self):
+        self.sensor = SensorDPS(0.10, 42)
+
+  - define a data_hora
+    ex:
+      def __init__(self):
+        self.data_inicial = datetime.now() - timedelta(days=1)
+
+- generate_data_list:
+  - define um intervalo de tempo 
+  - gera os dados
+  - retorna uma lista de dados gerados
+
+    ex:
+      def generate_data_list(self) -> list:
+          dados_simulados = []
+
+          for i in range(self.qtdGerada):
+              intervalo = 10 + i % 6  # 10 a 15 min (apenas para variar)
+              data_hora = self.data_inicial + timedelta(minutes=i * intervalo)
+              dado = self.sensor.generate_data()
+              dados_simulados.append(dado)
+
+          return dados_simulados
