@@ -1,25 +1,26 @@
 import os
 import pandas as pd
 from datetime import datetime
+from datetime import datetime, timedelta
+import random
 
 from sensors.dht11_sensor import SensorDHT11
 
 class DHT11Processor:
-    def __init__(self):
-        self.sensor = SensorDHT11()
+    def __init__(self, qtdGerada: int):
+        self.data_inicial = datetime.now() - timedelta(days=1)
+        self.qtdGerada = qtdGerada
+        self.sensor = SensorDHT11(seed=43)
 
-    def generate_dataframe(self) -> pd.DataFrame:
-        dados = self.sensor.generate_raw_data()
-        return pd.DataFrame(dados)
+    def generate_data_list(self) -> list:
+        dados_simulados = []
 
-    def get_output_path(self):
-        today = datetime.today().strftime('%Y-%m-%d')
-        output_dir = f"data/{self.sensor.sensor_name}/{today}"
-        os.makedirs(output_dir, exist_ok=True)
+        for i in range(self.qtdGerada):
+            dataHora = (
+                self.data_inicial + timedelta(minutes=sum(random.randint(2, 5) for _ in range(i)))
+                if i > 0 else self.data_inicial
+            )
+            dado = self.sensor.generate_data(dataHora)
+            dados_simulados.append(dado)
 
-        timestamp = datetime.now().strftime('%H-%M-%S')
-        return os.path.join(output_dir, f"{timestamp}-{self.sensor.sensor_name}.csv")
-
-    def save_data(self, df: pd.DataFrame):
-        path = self.get_output_path()
-        df.to_csv(path, index=False)
+        return dados_simulados

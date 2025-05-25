@@ -1,6 +1,6 @@
 Sensores a alterar:
-  - dht11
-  - gps (apagar)
+  - dht11           -- feito
+  - gps (apagar)    -- feito
   - optico
   - piezo
 
