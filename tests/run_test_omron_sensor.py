@@ -1,6 +1,5 @@
 import os
 import sys
-import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -8,19 +7,34 @@ from process.omron_processor import OmronProcessor
 from process.iot_processor import IOTProcessor
 
 if __name__ == "__main__":
-    # Cenário BOM
-    processor = OmronProcessor(hotspots=2, percent=0.6, noise=0.005, radius_min=1, radius_max=2, lines=20, columns=30)
 
-    # Cenário ALERTA
-    # processor = OmronProcessor(hotspots=5, percent=0.7, noise=0.02, radius_min=1, radius_max=3, lines=20, columns=30)
+    processor = OmronProcessor(
+        hotspots=0, percent=0.6, noise=0.005,
+        radius_min=2, radius_max=4, lines=20, columns=40,
+        porta_hotspots=[[10, 20],[20, 30]]  # centro
+    )
 
-    # Cenário CRITICO
-    # processor = OmronProcessor(hotspots=8, percent=0.9, noise=0.08, radius_min=2, radius_max=4, lines=20, columns=30)
+    # processor = OmronProcessor(
+    #     hotspots=0, percent=0.8, noise=0.08,
+    #     radius_min=2, radius_max=5, lines=20, columns=40,
+    #     porta_hotspots=[[0, 10], [30, 39]]
+    # )
+    
+    # processor = OmronProcessor(
+    #     hotspots=3, percent=0.6, noise=0.02,
+    #     radius_min=2, radius_max=4, lines=20, columns=40,
+    #     porta_hotspots=[]
+    # )
 
-    df = processor.generate_data_list()
-    print(df)
-
-    save = IOTProcessor(df)
+    # processor = OmronProcessor(
+    #     hotspots=8, percent=0.6, noise=0.2,
+    #     radius_min=2, radius_max=4, lines=20, columns=40,
+    #     porta_hotspots=[]
+    # )
+    
+    lista = processor.generate_data_list()
+        
+    save = IOTProcessor(lista)
     save.insert_azure()
 
     # output_dir = os.path.join(os.path.dirname(__file__), "output")
